@@ -7,20 +7,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class OrderPage {
 
-    WebDriver driver;
-
-    public OrderPage(WebDriver driver) {
-        this.driver = driver;
-    }
-
+    private final WebDriver driver;
     //Поля для заполнения формы заказа (1 страница).
     private final By nameField = By.xpath("//input[@placeholder=\"* Имя\"]");
     private final By surnameField = By.xpath("//input[@placeholder=\"* Фамилия\"]");
     private final By addressField = By.xpath("//input[@placeholder=\"* Адрес: куда привезти заказ\"]");
     private final By metroStationField = By.xpath("//input[@placeholder=\"* Станция метро\"]");
     private final By phoneField = By.xpath("//input[@placeholder=\"* Телефон: на него позвонит курьер\"]");
-    private final By buttonNext= By.xpath("//button[text()=\"Далее\"]");
-
+    private final By buttonNext = By.xpath("//button[text()=\"Далее\"]");
     //Поля для заполнения формы заказа (2 страница).
     private final By dateField = By.xpath("//input[@placeholder=\"* Когда привезти самокат\"]");
     private final By rentPeriodField = By.className("Dropdown-arrow");
@@ -30,6 +24,10 @@ public class OrderPage {
     private final By buttonOrder = By.xpath("//*[@class=\"Button_Button__ra12g Button_Middle__1CSJM\"][text()=\"Заказать\"]");
     private final By buttonAgreeOrder = By.xpath("//button[text()=\"Да\"]");
     private final By modalHeaderOrderSuccess = By.xpath("//*[@class=\"Order_ModalHeader__3FDaJ\"][text()=\"Заказ оформлен\"]");
+
+    public OrderPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public void setName(String name) {
         driver.findElement(nameField).sendKeys(name);
@@ -70,9 +68,9 @@ public class OrderPage {
     }
 
     public void setColorScooter(String color) {
-        if(color.equals("black")) {
+        if (color.equals("black")) {
             driver.findElement(blackColorCheckbox).click();
-        } else if(color.equals("grey")) {
+        } else if (color.equals("grey")) {
             driver.findElement(greyColorCheckbox).click();
         }
     }
@@ -92,5 +90,19 @@ public class OrderPage {
 
     public boolean getTextModalOrderSuccess() {
         return driver.findElement(modalHeaderOrderSuccess).isDisplayed();
+    }
+
+    public void setOnlyRequiredFieldsFormAndCreateOrder(String name, String surname, String address,
+                                                        String metroStation, String phone, String date, String rentPeriod) {
+        setName(name);
+        setSurname(surname);
+        setAddress(address);
+        setMetroStation(metroStation);
+        setPhone(phone);
+        clickButtonNext();
+        setDate(date);
+        setRentPeriod(rentPeriod);
+        clickButtonOrder();
+        clickButtonAgreeOrder();
     }
 }
