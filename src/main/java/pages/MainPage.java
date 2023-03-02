@@ -6,15 +6,9 @@ import org.openqa.selenium.WebDriver;
 
 public class MainPage {
 
-    WebDriver driver;
-
-    public MainPage(WebDriver driver) {
-        this.driver = driver;
-    }
-
+    private final WebDriver driver;
     private final By upButtonOrder = By.className("Button_Button__ra12g");
     private final By downButtonOrder = By.className("Button_Middle__1CSJM");
-
     //Выпадающий список в разделе "Вопросы о важном".
     private final By firstQuestion = By.id("accordion__heading-0");
     private final By firstAnswer = By.xpath("//*[@id=\"accordion__panel-0\"]/p");
@@ -33,17 +27,25 @@ public class MainPage {
     private final By eighthQuestion = By.id("accordion__heading-7");
     private final By eighthAnswer = By.xpath("//*[@id=\"accordion__panel-7\"]/p");
 
+    public MainPage(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    public void scrollToElementAndClick(By element) {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(element));
+        driver.findElement(element).click();
+    }
+
     public void clickUpButtonOrder() {
         driver.findElement(upButtonOrder).click();
     }
 
     public void clickDownButtonOrder() {
-        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(downButtonOrder));
-        driver.findElement(downButtonOrder).click();
+        scrollToElementAndClick(downButtonOrder);
     }
 
     public void clickButtonOrder(String buttonPlace) {
-        if(buttonPlace.equals("Up")) {
+        if (buttonPlace.equals("Up")) {
             clickUpButtonOrder();
         } else if (buttonPlace.equals("Down")) {
             clickDownButtonOrder();
@@ -51,43 +53,35 @@ public class MainPage {
     }
 
     public void clickFirstQuestion() {
-        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(firstQuestion));
-        driver.findElement(firstQuestion).click();
+        scrollToElementAndClick(firstQuestion);
     }
 
     public void clickSecondQuestion() {
-        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(secondQuestion));
-        driver.findElement(secondQuestion).click();
+        scrollToElementAndClick(secondQuestion);
     }
 
     public void clickThirdQuestion() {
-        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(thirdQuestion));
-        driver.findElement(thirdQuestion).click();
+        scrollToElementAndClick(thirdQuestion);
     }
 
     public void clickFourthQuestion() {
-        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(fourthQuestion));
-        driver.findElement(fourthQuestion).click();
+        scrollToElementAndClick(fourthQuestion);
     }
 
     public void clickFifthQuestion() {
-        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(fifthQuestion));
-        driver.findElement(fifthQuestion).click();
+        scrollToElementAndClick(fifthQuestion);
     }
 
     public void clickSixthQuestion() {
-        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(sixthQuestion));
-        driver.findElement(sixthQuestion).click();
+        scrollToElementAndClick(sixthQuestion);
     }
 
     public void clickSeventhQuestion() {
-        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(seventhQuestion));
-        driver.findElement(seventhQuestion).click();
+        scrollToElementAndClick(seventhQuestion);
     }
 
     public void clickEighthQuestion() {
-        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(eighthQuestion));
-        driver.findElement(eighthQuestion).click();
+        scrollToElementAndClick(eighthQuestion);
     }
 
     public String getFirstAnswer() {
