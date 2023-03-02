@@ -30,16 +30,8 @@ public class CreateOrderOnlyRequiredFieldsFormTest {
         MainPage mainPage = new MainPage(driver);
         mainPage.clickDownButtonOrder();
         OrderPage orderPage = new OrderPage(driver);
-        orderPage.setName("Иван");
-        orderPage.setSurname("Алексеев");
-        orderPage.setAddress("Мира 25, кв. 13");
-        orderPage.setMetroStation("Павелецкая");
-        orderPage.setPhone("89234567812");
-        orderPage.clickButtonNext();
-        orderPage.setDate(currentDate.plusDays(1).toString());
-        orderPage.setRentPeriod("сутки");
-        orderPage.clickButtonOrder();
-        orderPage.clickButtonAgreeOrder();
+        orderPage.setOnlyRequiredFieldsFormAndCreateOrder("Иван","Алексеев","Мира 25, кв. 13",
+                "Павелецкая","89234567812",currentDate.plusDays(1).toString(),"сутки");
         Assert.assertTrue(orderPage.getTextModalOrderSuccess());
     }
 }
